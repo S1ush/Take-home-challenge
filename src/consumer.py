@@ -13,13 +13,17 @@ class Consumer(threading.Thread):
 
     def run(self):
         logger.info("Consumer started.")
-        while True:
-            item = self.queue.take()
+        try:
+            while True:
+                item = self.queue.take()
 
-            if item.is_poison_pill():
-                logger.info("Poison Pill received. Shutting down Consumer.")
-                break
+                if item.is_poison_pill():
+                    logger.info("Poison Pill received. Shutting down Consumer.")
+                    break
 
-            logger.info(f"Consuming: {item.payload}")
-            # Simulate processing time
-            time.sleep(self.processing_time)
+                logger.info(f"Consuming: {item.payload}")
+                # Simulate processing time
+                time.sleep(self.processing_time)
+                
+        except Exception as e:
+            logger.error(f"Consumer encountered an unexpected error: {e}")

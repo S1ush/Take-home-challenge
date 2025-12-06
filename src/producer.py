@@ -15,12 +15,16 @@ class Producer(threading.Thread):
 
     def run(self):
         logger.info("Producer started.")
-        for i in range(1, self.item_count + 1):
-            item = DataItem(i)
-            logger.info(f"Producing: {item}")
-            self.queue.put(item)
-            time.sleep(self.delay)
-        
-        # Send Poison Pill (Shutdown Signal)
-        logger.info("Producer finished. Sending Poison Pill.")
-        self.queue.put(DataItem(None))
+        try:
+            for i in range(1, self.item_count + 1):
+                item = DataItem(i)
+                logger.info(f"Producing: {item}")
+                self.queue.put(item)
+                time.sleep(self.delay)
+            
+            # Send Poison Pill (Shutdown Signal)
+            logger.info("Producer finished. Sending Poison Pill.")
+            self.queue.put(DataItem(None))
+            
+        except Exception as e:
+            logger.error(f"Producer encountered an unexpected error: {e}")
