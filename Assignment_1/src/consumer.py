@@ -14,9 +14,14 @@ class Consumer(threading.Thread):
     def run(self):
         logger.info("Consumer started.")
         try:
+            # Infinite loop to keep consuming until instructed to stop
             while True:
+
+                # Retrieve an item from the queue.
                 item = self.queue.take()
 
+
+                # Check if the retrieved item is the special "Poison Pill" (shutdown signal)
                 if item.is_poison_pill():
                     logger.info("Poison Pill received. Shutting down Consumer.")
                     break

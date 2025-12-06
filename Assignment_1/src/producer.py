@@ -16,10 +16,15 @@ class Producer(threading.Thread):
     def run(self):
         logger.info("Producer started.")
         try:
+            # Loop from 1 up to the specific item_count
             for i in range(1, self.item_count + 1):
                 item = DataItem(i)
                 logger.info(f"Producing: {item}")
+
+                # Insert the item into the shared queue.
                 self.queue.put(item)
+
+                # Sleep to simulate the time it takes to produce an item
                 time.sleep(self.delay)
             
             # Send Poison Pill (Shutdown Signal)
