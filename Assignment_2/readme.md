@@ -1,4 +1,4 @@
-# Functional Car Sales Analysis
+# Assignment 2 - Functional Car Sales Analysis
 
 ## Project Description
 A Python application that analyzes car sales data using **Functional Programming** paradigms and **Stream processing**. The application reads a CSV dataset of car sales and performs aggregation to identify:
@@ -53,4 +53,5 @@ A Python application that analyzes car sales data using **Functional Programming
 3.  **Run Tests:**
     ```bash
     python -m unittest discover -v tests
+
     ```
